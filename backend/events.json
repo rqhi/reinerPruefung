@@ -1,0 +1,71 @@
+[
+  {
+    "createdOn": "localhost",
+    "createdBy": "::1",
+    "entry": {
+      "title": "Test",
+      "description": "TEst",
+      "location": "DHBWTEST",
+      "date": "2023-10-30",
+      "price": 100,
+      "approved": true
+    },
+    "id": 1
+  },
+  {
+    "createdOn": "localhost",
+    "createdBy": "::1",
+    "softwareVersion": null,
+    "entry": {
+      "title": "dawda",
+      "description": "edawda",
+      "location": "dawdad",
+      "date": "1212-12-12",
+      "price": 12,
+      "approved": true
+    },
+    "id": 2
+  },
+  {
+    "createdOn": "localhost",
+    "createdBy": "::1",
+    "softwareVersion": null,
+    "entry": {
+      "title": "Aarons Geburtstag",
+      "description": "richtig geile fetz",
+      "location": "Aarons zuhause",
+      "date": "2024-01-01",
+      "price": 10,
+      "approved": false
+    },
+    "id": 3
+  },
+  {
+    "createdOn": "localhost",
+    "createdBy": "::1",
+    "softwareVersion": null,
+    "entry": {
+      "title": "Test1",
+      "description": "Beschreibung2",
+      "location": "DHBW Heidenheim",
+      "date": "2023-11-15",
+      "price": 20,
+      "approved": true
+    },
+    "id": 4
+  },
+  {
+    "createdOn": "localhost",
+    "createdBy": "::1",
+    "softwareVersion": null,
+    "entry": {
+      "title": "Titel1",
+      "description": "Das ist ein Titel für heute",
+      "location": "Veranstaltungsort goofy ass",
+      "date": "2023-12-23",
+      "price": 17,
+      "approved": true
+    },
+    "id": 5
+  }
+]

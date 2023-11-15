@@ -1,0 +1,4 @@
+{"timestamp":"2023-11-13T19:03:14.486Z","action":"Genehmigung","event":"Test3","approvedBy":"Admin"}
+{"timestamp":"2023-11-14T08:43:47.527Z","action":"Genehmigung","event":"Test2","approvedBy":"Admin"}
+{"timestamp":"2023-11-15T07:16:12.035Z","action":"Genehmigung","event":"Titel1","approvedBy":"Admin"}
+{"timestamp":"2023-11-15T07:21:02.148Z","action":"Genehmigung","event":"Test1","approvedBy":"Admin"}

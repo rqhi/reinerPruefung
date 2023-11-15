@@ -1,0 +1,19 @@
+.event-list-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .event-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  
+  .event-card {
+    background-color: #f7f7f7;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left;
+  }
+  

@@ -1,0 +1,57 @@
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+button {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error-message {
+  color: #FF0000;
+}
+
+.event-card {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin: 10px;
+}
+
+.event-card {
+  background-color: #f5f5f5;
+  padding: 10px;
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+  /* CSS-Anweisungen für kleinere Bildschirme */
+}
+
+@media (min-width: 769px) {
+  /* CSS-Anweisungen für größere Bildschirme */
+}
