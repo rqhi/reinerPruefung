@@ -12,5 +12,6 @@ in /frontend
 npm install
 npm start
 ```
+Warnung, dass auf Port 3000 schon was läuft einfach mit 'y' bestätigen. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+localhost:3001/ öffnen
