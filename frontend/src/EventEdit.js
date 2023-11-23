@@ -12,7 +12,7 @@ function EventEdit(props) {
     entry: {
       title: ''
     }
-  });
+  });  
 
   var url = window.location.pathname;
   const eventId = url.substring(url.lastIndexOf('/') + 1);
@@ -22,9 +22,7 @@ function EventEdit(props) {
     axios.get(`http://localhost:3000/events/${eventId}`)
       .then((response) => {
         setEvent(response.data);
-        setEditedEvent(response.data); // Initialisieren Sie editedEvent mit den aktuellen Details
-        console.log(response.data);
-        console.log(event);
+        setEditedEvent(response.data); // Initialisieren Sie editedEvent mit den aktuellen Details;
       })
       .catch((error) => {
         console.error('Fehler beim Abrufen der Veranstaltungsdetails: ' + error);
@@ -33,7 +31,6 @@ function EventEdit(props) {
 
   const handleUpdate = () => {
     // Senden einer PUT-Anfrage an den Server, um die Veranstaltung zu aktualisieren
-    console.log('EditedEvent: ' + editedEvent)
     axios.put(`http://localhost:3000/events/${eventId}`, editedEvent)
       .then((response) => {
         // Erfolgreiche Rückmeldung vom Server, z.B., Weiterleitung zur Veranstaltungsdetailansicht
@@ -48,15 +45,23 @@ function EventEdit(props) {
     <div>
       <h1>Bearbeiten der Veranstaltung: {event.entry.title}</h1>
       <form>
-        <label>Veranstaltungstitel:
+        <label>
+          Veranstaltungstitel:
           <input
             type="text"
-             /*value={editedEvent.entry.title} */
-            onChange={(e) => setEditedEvent({ ...editedEvent, title: e.target.value })}
+            value={editedEvent.entry.title}
+            onChange={(e) =>
+              setEditedEvent({
+                ...editedEvent,
+                entry: { ...editedEvent.entry, title: e.target.value },
+              })
+            }
           />
         </label>
         {/* Fügen Sie weitere Formularfelder für die Bearbeitung hinzu, z.B., Beschreibung, Ort, Datum und Preis */}
-        <button type="button" onClick={handleUpdate}>Änderungen speichern</button>
+        <button type="button" onClick={handleUpdate}>
+          Änderungen speichern
+        </button>
       </form>
       <Link to={`/event/${eventId}`}>Zurück zur Detailansicht</Link>
     </div>

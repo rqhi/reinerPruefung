@@ -6,7 +6,7 @@
       "title": "Test",
       "description": "TEst",
       "location": "DHBWTEST",
-      "date": "2023-10-30",
+      "date": "30.10.2023",
       "price": 100,
       "approved": true
     },
@@ -17,10 +17,10 @@
     "createdBy": "::1",
     "softwareVersion": null,
     "entry": {
-      "title": "dawda",
+      "title": "huhu",
       "description": "edawda",
       "location": "dawdad",
-      "date": "1212-12-12",
+      "date": "12.12.1212",
       "price": 12,
       "approved": true
     },
@@ -34,7 +34,7 @@
       "title": "Aarons Geburtstag",
       "description": "richtig geile fetz",
       "location": "Aarons zuhause",
-      "date": "2024-01-01",
+      "date": "01.01.2024",
       "price": 10,
       "approved": false
     },
@@ -48,9 +48,9 @@
       "title": "Test1",
       "description": "Beschreibung2",
       "location": "DHBW Heidenheim",
-      "date": "2023-11-15",
+      "date": "15.11.2023",
       "price": 20,
-      "approved": true
+      "approved": false
     },
     "id": 4
   },
@@ -62,9 +62,9 @@
       "title": "Titel1",
       "description": "Das ist ein Titel für heute",
       "location": "Veranstaltungsort goofy ass",
-      "date": "2023-12-23",
+      "date": "23.12.2023",
       "price": 17,
-      "approved": true
+      "approved": false
     },
     "id": 5
   }

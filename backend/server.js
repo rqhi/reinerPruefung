@@ -15,7 +15,7 @@ let events = require("./events.json");
 const cors = require("cors");
 app.use(cors());
 
-// Route - genehmigte Veranstaltung
+// Route - genehmigte Veranstaltung - DONE
 app.get("/approved-events", (req, res) => {
   // Filtere die genehmigten Veranstaltungen
   const approvedEvents = events.filter((event) => event.entry.approved);
@@ -28,20 +28,16 @@ app.get("/approved-events", (req, res) => {
   res.json(sortedEvents);
 });
 
-// Route - ungenehmigte Veranstaltung
+// Route - ungenehmigte Veranstaltung - DONE
 app.get("/unapproved-events", (req, res) => {
   // Filtere die nicht genehmigten Veranstaltungen
   const unapprovedEvents = events.filter((event) => !event.entry.approved);
-
   res.json(unapprovedEvents);
 });
 
-// Route - hinzufügen Veranstaltung
+// Route - hinzufügen Veranstaltung - DONE
 app.post("/add-event", (req, res) => {
   const newEventInfos = req.body; // Daten von EventForm.js
-
-  // +1 Neue ID für Event
-  //newEventInfos.id = events.length + 1;
 
   // überprüfen ob alle Informationen gefüllt sind.
   if (
@@ -57,6 +53,14 @@ app.post("/add-event", (req, res) => {
         "Unvollständige Informationen: Bitte füllen Sie alle erforderlichen Felder aus.",
     });
   }
+
+    // Datum in deutsches Format DD.MM.YYYY umformen
+    console.log(newEventInfos.date);
+    const newDateFormat = Intl.DateTimeFormat('de-DE').format(newEventInfos.date);
+    console.log(newDateFormat);
+    // newDateFormat = newDateFormat.DateTime;
+    newEventInfos.date = newDateFormatM
+    console.log(newEventInfos);
 
   // Alle Veranstaltungen aus der Events.json lesen
   fs.readFile("events.json", "utf8", (err, data) => {
@@ -111,11 +115,9 @@ app.get("/search-events", (req, res) => {
   res.json(matchingEvents);
 });
 
-// Route - einzelnes Event aufrufen
+// Route - einzelnes Event aufrufen - DONE
 app.get("/events/:id", (req, res) => {
   const eventId = parseInt(req.params.id);
-
-  // Filtere nach einer eindeutigen Event ID
   const event = events.find((event) => event.id === eventId);
 
   if (event) {
@@ -141,11 +143,9 @@ app.delete("/events/:id", (req, res) => {
   }
 });
 
-// Route - einzelnes Event bearbeiten
+// Route - einzelnes Event bearbeiten - DONE
 app.put("/events/:id", (req, res) => {
   const eventId = parseInt(req.params.id);
-
-  // Filtere nach einer eindeutigen Event ID
   const event = events.find((event) => event.id === eventId);
 
   if (!event) {
@@ -155,33 +155,24 @@ app.put("/events/:id", (req, res) => {
   // Veranstaltung updaten
   const updatedEvent = req.body;
 
-  // Stellen Sie sicher, dass die ID der Veranstaltung unverändert bleibt
+  // ID sichern
   updatedEvent.id = eventId;
 
-  
-  // Index der zu aktualisierenden Veranstaltung in der Liste finden
+  // Index des zu aktualisierenden Event in der Liste finden
   const eventIndex = events.findIndex((event) => event.id === eventId);
 
-  console.log('Index' + eventIndex);
-  console.log(events[eventIndex]);
-  // Aktualisieren Sie die Veranstaltung in der Liste
+  // Event aktualisieren
   events[eventIndex] = updatedEvent;
 
-  console.log(events[eventIndex]);
-  //console.log('1: ' + updatedEvent);
-
-  //events.push(updatedEvent);
-
-  console.log('2: ' + events);
+   // Aktualisiertes Event in events.json schreiben
+   fs.writeFileSync('events.json', JSON.stringify(events, null, 2));
 
   res.json(updatedEvent);
 });
 
-// Route - einzelnes Event genehmigen
+// Route - einzelnes Event genehmigen - TODO versch. User
 app.post("/approve-event/:id", (req, res) => {
   const eventId = parseInt(req.params.id);
-
-  // Suchen Sie die Veranstaltung anhand der ID
   const event = events.find((event) => event.id === eventId);
 
   if (!event) {
@@ -197,7 +188,7 @@ app.post("/approve-event/:id", (req, res) => {
     event.entry.approved = true;
   }
 
-  // Protokollieren Sie die Genehmigungsaktion
+  // Protokoll
   const auditLogEntry = {
     timestamp: new Date().toISOString(),
     action: "Genehmigung",
@@ -224,7 +215,7 @@ app.post("/approve-event/:id", (req, res) => {
   });
 });
 
-// Route - externes Event hinzufügen
+// Route - externes Event hinzufügen - TODO
 app.post("/add-external-event", (req, res) => {
   const eventData = req.body; // Die externen Veranstaltungsdaten aus dem Request Body
 
@@ -256,37 +247,49 @@ app.post("/add-external-event", (req, res) => {
     approved: false, // Die Veranstaltung ist standardmäßig nicht genehmigt
   };
 
+  // Datum in deutsches Format DD.MM.YYYY umformen
+  newEvent.date = newEvent.date.toLocaleDateString('de-DE');
+
   events.push(newEvent);
 
   res.json(newEvent);
 });
 
-// Route - erstellen Testdaten
+// Route - erstellen Testdaten - TODO
 app.post("/generate-test-data", (req, res) => {
-
   const numberOfTestEvents = 10; // wieviele Testsätze sollen erstellt werden
+  const newEvents = [];
 
-  for (let i = 0; i < numberOfTestEvents; i++) {
+  // Zufälliges Datum
+  const rdg = require('random-date-generator');
+  const startDate = new Date(2023, 1, 1);
+  const endDate = new Date(2024, 12, 31);
+
+  for (let i = 1; i <= numberOfTestEvents; i++) { 
+    const rndmDate = rdg.getRandomDateInRange(startDate, endDate).toLocaleDateString('de-DE');
+    console.log(rndmDate)
     const newEvent = {
       createdOn: "Terminal361",
       createdBy: "Testbenutzer",
       softwareVersion: 1.0,
       entry: {
-      title: `Test-Veranstaltung ${i + 1}`,
-      beschreibung: `Dies ist eine Testveranstaltung Nummer ${i + 1}`,
+      title: `Test-Veranstaltung ${i}`,
+      beschreibung: `Dies ist eine Testveranstaltung Nummer ${i}`,
       location: "Testort",
-      date: "2025-12-31",
+      date: `${rndmDate}`,
       price: Math.floor(Math.random() * 100), // Zufälliger Preis zwischen 0 und 99
       approved: false
       },
-      id: events.length + 1,
+      id: events.length + i,
     };
-
-    events.push(newEvent);
+    newEvents.push(newEvent)
   }
 
+  events.push(...newEvents);
+
   res.json({
-    message: `${numberOfTestEvents} Testdatensätze wurden erstellt`,
+    message: `${numberOfTestEvents} Testdatensätze wurden erstellt und gespeichert`,
+    newEvents: newEvents,
   });
 });
 
