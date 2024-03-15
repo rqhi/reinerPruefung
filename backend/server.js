@@ -102,16 +102,16 @@ app.post("/add-event", (req, res) => {
 // Route, um Veranstaltungen zu suchen (Titel, Veranstaltungsort (TODO Datum, Preis, Beschreibung)
 app.get("/search-events", (req, res) => {
   const { query } = req.query; // Query-Parameter "query" aus der URL
-
   if (!query) {
-    return res.status(400).json({ error: 'Query-Parameter "query" fehlt' });
+    return res.status(400).json({ error: req.query});
+  //  return res.status(400).json({ error: 'Query-Parameter "query" fehlt' });
   }
 
   const matchingEvents = events.filter(
     (event) =>
       event.entry.title.includes(query) || event.entry.location.includes(query)
   );
-
+  return res.status(200).json(matchingEvents);
   res.json(matchingEvents);
 });
 
