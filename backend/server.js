@@ -109,7 +109,7 @@ app.get("/search-events", (req, res) => {
 
   const matchingEvents = events.filter(
     (event) =>
-      event.entry.title.includes(query) || event.entry.location.includes(query)
+      event.entry.title.includes(query) || event.entry.location.includes(query) || event.entry.date.includes(query) || event.entry.price.includes(query) || event.entry.description.includes(query)
   );
   return res.status(200).json(matchingEvents);
   res.json(matchingEvents);
@@ -262,7 +262,7 @@ app.post("/generate-test-data", (req, res) => {
 
   // Zufälliges Datum
   const rdg = require('random-date-generator');
-  const startDate = new Date(2023, 1, 1);
+  const startDate = new Date(today);
   const endDate = new Date(2024, 12, 31);
 
   for (let i = 1; i <= numberOfTestEvents; i++) { 
