@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EventCard from './EventCard';
-import { Link } from 'react-router-dom';
 
 function UnapprovedEvents() {
   const [unapprovedEvents, setUnapprovedEvents] = useState([]);
