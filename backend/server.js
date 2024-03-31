@@ -54,13 +54,10 @@ app.post("/add-event", (req, res) => {
     });
   }
 
-    // Datum in deutsches Format DD.MM.YYYY umformen
-    console.log(newEventInfos.date);
-    const newDateFormat = Intl.DateTimeFormat('de-DE').format(newEventInfos.date);
-    console.log(newDateFormat);
-    // newDateFormat = newDateFormat.DateTime;
-    newEventInfos.date = newDateFormatM
-    console.log(newEventInfos);
+  // Datum in deutsches Format DD.MM.YYYY umformen
+  let newEventDate = new Date(newEventInfos.date);
+  const newDateFormat = Intl.DateTimeFormat("de-DE").format(newEventDate);
+  newEventInfos.date = newDateFormat;
 
   // Alle Veranstaltungen aus der Events.json lesen
   fs.readFile("events.json", "utf8", (err, data) => {
@@ -103,13 +100,17 @@ app.post("/add-event", (req, res) => {
 app.get("/search-events", (req, res) => {
   const { query } = req.query; // Query-Parameter "query" aus der URL
   if (!query) {
-    return res.status(400).json({ error: req.query});
-  //  return res.status(400).json({ error: 'Query-Parameter "query" fehlt' });
+    return res.status(400).json({ error: req.query });
+    //  return res.status(400).json({ error: 'Query-Parameter "query" fehlt' });
   }
 
   const matchingEvents = events.filter(
     (event) =>
-      event.entry.title.includes(query) || event.entry.location.includes(query) || event.entry.date.includes(query) || event.entry.price.includes(query) || event.entry.description.includes(query)
+      event.entry.title.includes(query) ||
+      event.entry.location.includes(query) ||
+      event.entry.date.includes(query) ||
+      // event.entry.price.includes(query) ||
+      event.entry.description.includes(query)
   );
   return res.status(200).json(matchingEvents);
   res.json(matchingEvents);
@@ -164,8 +165,8 @@ app.put("/events/:id", (req, res) => {
   // Event aktualisieren
   events[eventIndex] = updatedEvent;
 
-   // Aktualisiertes Event in events.json schreiben
-   fs.writeFileSync('events.json', JSON.stringify(events, null, 2));
+  // Aktualisiertes Event in events.json schreiben
+  fs.writeFileSync("events.json", JSON.stringify(events, null, 2));
 
   res.json(updatedEvent);
 });
@@ -183,8 +184,7 @@ app.post("/approve-event/:id", (req, res) => {
     return res
       .status(400)
       .json({ error: "Veranstaltung ist bereits genehmigt" });
-  } 
-  else {
+  } else {
     event.entry.approved = true;
   }
 
@@ -230,7 +230,7 @@ app.post("/add-external-event", (req, res) => {
     eventData.softwareVersion = null;
   }
 
-  // Erzeugen Sie eine eindeutige ID 
+  // Erzeugen Sie eine eindeutige ID
   const eventId = events.length + 1;
 
   // Fügen Sie die Daten der neuen Veranstaltung hinzu
@@ -248,7 +248,9 @@ app.post("/add-external-event", (req, res) => {
   };
 
   // Datum in deutsches Format DD.MM.YYYY umformen
-  newEvent.date = newEvent.date.toLocaleDateString('de-DE');
+  let newEventDate = new Date(newEvent.date);
+  const newDateFormat = Intl.DateTimeFormat("de-DE").format(newEventDate);
+  newEvent.date = newDateFormat;
 
   events.push(newEvent);
 
@@ -261,28 +263,30 @@ app.post("/generate-test-data", (req, res) => {
   const newEvents = [];
 
   // Zufälliges Datum
-  const rdg = require('random-date-generator');
-  const startDate = new Date(today);
+  const rdg = require("random-date-generator");
+  const startDate = new Date(2024, 4, 1);
   const endDate = new Date(2024, 12, 31);
 
-  for (let i = 1; i <= numberOfTestEvents; i++) { 
-    const rndmDate = rdg.getRandomDateInRange(startDate, endDate).toLocaleDateString('de-DE');
-    console.log(rndmDate)
+  for (let i = 1; i <= numberOfTestEvents; i++) {
+    const rndmDate = rdg
+      .getRandomDateInRange(startDate, endDate)
+      .toLocaleDateString("de-DE");
+    console.log(rndmDate);
     const newEvent = {
       createdOn: "Terminal361",
       createdBy: "Testbenutzer",
       softwareVersion: 1.0,
       entry: {
-      title: `Test-Veranstaltung ${i}`,
-      beschreibung: `Dies ist eine Testveranstaltung Nummer ${i}`,
-      location: "Testort",
-      date: `${rndmDate}`,
-      price: Math.floor(Math.random() * 100), // Zufälliger Preis zwischen 0 und 99
-      approved: false
+        title: `Test-Veranstaltung ${i}`,
+        beschreibung: `Dies ist eine Testveranstaltung Nummer ${i}`,
+        location: "Testort",
+        date: `${rndmDate}`,
+        price: Math.floor(Math.random() * 100), // Zufälliger Preis zwischen 0 und 99
+        approved: false,
       },
       id: events.length + i,
     };
-    newEvents.push(newEvent)
+    newEvents.push(newEvent);
   }
 
   events.push(...newEvents);

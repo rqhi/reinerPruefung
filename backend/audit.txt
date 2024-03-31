@@ -1,2 +1,0 @@
-{"timestamp":"2023-11-15T14:23:52.695Z","action":"Genehmigung","event":"Test-Veranstaltung 5","approvedBy":"Admin"}
-{"timestamp":"2023-11-15T14:23:53.594Z","action":"Genehmigung","event":"Test-Veranstaltung 7","approvedBy":"Admin"}
